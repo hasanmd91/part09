@@ -24,34 +24,35 @@ function BmiCategory(bmi: number) {
   }
 }
 
-const calculateBmi = (height: number, weight: number, printText: string) => {
+const calculateBmi = (height: number, weight: number) => {
   const heightMeters = height / 100;
   const bmi = weight / heightMeters ** 2;
   const bmiCategory = BmiCategory(bmi);
+  console.log(bmiCategory);
   return bmiCategory;
 };
 
+const parsevalue = (args: string[]): BmiValues => {
+  if (args.length !== 4) {
+    throw new Error("Invalid number of arguments");
+  }
+
+  if (!isNaN(Number(args[2])) && !isNaN(Number(args[3]))) {
+    return { height: Number(args[2]), weight: Number(args[3]) };
+  } else {
+    throw new Error("Provided values were not numbers!");
+  }
+};
+
 try {
+  const { height, weight } = parsevalue(process.argv);
+  calculateBmi(height, weight);
 } catch (error: unknown) {
   let errorMessage = "something bad happend";
-
   if (error instanceof Error) {
     errorMessage += "Error:" + error.message;
+    console.log(errorMessage);
   } else {
     console.log(errorMessage);
   }
 }
-
-const parsevalue = (args: string[]): BmiValues => {
-  if (args.length > 4) throw new Error(" Too many arguments");
-  if (args.length < 4) throw new Error(" Not Enough arguments");
-
-  if (!isNaN(Number(args[2])) && !isNaN(Number(args[3]))) {
-    return {
-      height: Number(args[2]),
-      weight: Number(args[3]),
-    };
-  } else throw new Error(" Provided value is not a number ");
-};
-
-const { height, weight } = parsevalue(process.argv);
