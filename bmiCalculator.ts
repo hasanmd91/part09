@@ -4,6 +4,7 @@ interface BmiValues {
 }
 
 const BmiCategory = (bmi: number): string => {
+  console.log(bmi);
   switch (true) {
     case bmi < 15:
       return "Very severely underweight";
@@ -25,10 +26,10 @@ const BmiCategory = (bmi: number): string => {
 };
 
 const calculateBmi = (height: number, weight: number): string => {
+  console.log("weight", weight);
   const heightMeters = height / 100;
   const bmi = weight / heightMeters ** 2;
   const bmiCategory = BmiCategory(bmi);
-  console.log(bmiCategory);
   return bmiCategory;
 };
 

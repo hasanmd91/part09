@@ -28,11 +28,7 @@ const parseArgvValues = (args: string[]): exerciseInputType => {
     array,
   };
 };
-const ratingMessage: string[] = [
-  "better luck next time",
-  "not too bad but could be better",
-  "success",
-];
+const ratingMessage: string[] = ["Bad", "Not Too Bad", "Good"];
 
 const calculateExercises = (array: number[], target: number): resultObject => {
   const periodLength = array.length;
@@ -72,3 +68,5 @@ try {
     console.log(errorinfo);
   }
 }
+
+export default calculateExercises;
