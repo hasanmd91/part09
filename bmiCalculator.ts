@@ -3,7 +3,7 @@ interface BmiValues {
   weight: number;
 }
 
-function BmiCategory(bmi: number) {
+const BmiCategory = (bmi: number): string => {
   switch (true) {
     case bmi < 15:
       return "Very severely underweight";
@@ -22,9 +22,9 @@ function BmiCategory(bmi: number) {
     default:
       return "Obese Class III (Very severely obese)";
   }
-}
+};
 
-const calculateBmi = (height: number, weight: number) => {
+const calculateBmi = (height: number, weight: number): string => {
   const heightMeters = height / 100;
   const bmi = weight / heightMeters ** 2;
   const bmiCategory = BmiCategory(bmi);
@@ -56,3 +56,5 @@ try {
     console.log(errorMessage);
   }
 }
+
+export default calculateBmi;
