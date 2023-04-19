@@ -12,6 +12,3 @@ app.get("/ping", (_req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
-
-//  o abida tumi e ki korila
-//  o abida tumi e ki korila
