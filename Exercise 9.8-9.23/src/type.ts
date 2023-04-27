@@ -1,5 +1,5 @@
 export enum Gender {
-  male = "Male",
+  Male = "Male",
   Female = "Female",
 }
 
@@ -14,10 +14,10 @@ export interface patientData {
 
 export type publicPatientData = Omit<patientData, "ssn">;
 
-export type newPatientData = Omit<patientData, "id">
+export type newPatientData = Omit<patientData, "id">;
 
 export interface diagnoseData {
   code: string;
-  name: string; 
+  name: string;
   latin?: string;
 }
