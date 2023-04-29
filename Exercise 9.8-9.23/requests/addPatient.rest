@@ -1,0 +1,11 @@
+
+POST http://localhost:3001/api/patients
+Content-Type: application/json
+
+{
+    "name": "Taher hasan",
+    "dateOfBirth": "1991-04-25",
+    "ssn": "250770-555L",
+    "gender": "male",
+    "occupation": "Developer"
+}

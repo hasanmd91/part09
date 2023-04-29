@@ -22,14 +22,6 @@ const data = [
         occupation: "Cop",
     },
     {
-        id: "d27736ec-f723-11e9-8f0b-362b9e155667",
-        name: "Hans Gruber",
-        dateOfBirth: "1970-04-25",
-        ssn: "250470-555L",
-        gender: "other",
-        occupation: "Technician",
-    },
-    {
         id: "d2773822-f723-11e9-8f0b-362b9e155667",
         name: "Dana Scully",
         dateOfBirth: "1974-01-05",

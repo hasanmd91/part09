@@ -18,6 +18,7 @@ const parseName = (name: unknown): string => {
   if (!name || !isString(name)) {
     throw new Error("Incorrect or missing name");
   }
+
   return name;
 };
 
