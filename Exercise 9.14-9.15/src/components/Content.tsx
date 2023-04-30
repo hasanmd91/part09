@@ -3,6 +3,7 @@ export interface courseParts {
   exerciseCount: number;
   description?: string;
   backgroundMaterial?: string;
+  requirements?: string[];
 }
 
 interface ContentProps {
@@ -18,6 +19,7 @@ const Content = ({ content }: ContentProps) => {
           </strong>
           <p> {con.description}</p>
           <p> {con.backgroundMaterial}</p>
+          <p>{con.requirements?.join(", ")} </p>
         </div>
       ))}
     </div>
