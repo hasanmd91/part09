@@ -6,6 +6,6 @@ Content-Type: application/json
     "name": "Ilhaan Hasan",
     "dateOfBirth": "1991-04-25",
     "ssn": "250770-555L",
-    "gender": "male",
+    "gender": 8,
     "occupation": "SW Developer"
 }
