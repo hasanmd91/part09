@@ -12,7 +12,11 @@ const App = () => {
     try {
       axios
         .get<DiaryEntry[]>("http://localhost:3000/api/diaries")
-        .then((response) => setDiaries(response.data));
+        .then(
+          (response: {
+            data: React.SetStateAction<DiaryEntry[] | undefined>;
+          }) => setDiaries(response.data)
+        );
     } catch (error) {
       console.log(error);
     }

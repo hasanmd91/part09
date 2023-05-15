@@ -1,15 +1,24 @@
 import React from "react";
-import { DiaryEntry, Weather, Visibility } from "../types";
+import { DiaryEntry } from "../types";
 
 type EntriesProps = {
-  date: string;
-  weather: Weather;
-  visibility: Visibility;
-  comment?: string;
+  entries: DiaryEntry[];
 };
 
-const Entries = ({ date, weather, visibility, comment }: EntriesProps) => {
-  return <div>Entries</div>;
+const Entries = ({ entries }: EntriesProps) => {
+  return (
+    <div>
+      {entries.map((entry) => (
+        <div key={entry.id}>
+          <p>
+            <strong>{entry.date}</strong>
+          </p>
+          <p>{entry.weather}</p>
+          <p> {entry.visibility}</p>
+        </div>
+      ))}
+    </div>
+  );
 };
 
 export default Entries;
