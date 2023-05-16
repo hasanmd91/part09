@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { Patient } from "../../types";
 import patientService from "../../services/patients";
 import { Box, Typography } from "@mui/material";
-import DiagnosisDetails from "./DiagnosisDetails";
+import EntryDetails from "./EntryDetails";
 
 const PatientDetails = () => {
   const params = useParams<Record<string, string | undefined>>();
@@ -38,17 +38,9 @@ const PatientDetails = () => {
           <strong>Gender:</strong> {patient?.gender}{" "}
         </Typography>
       </Box>
-
-      <Box>
-        {patient?.entries?.map((entry) => (
-          <Box key={entry.id}>
-            <Typography> Description: {entry.description}</Typography>
-            {entry.diagnosisCodes?.map((code) => (
-              <DiagnosisDetails code={code} key={code} />
-            ))}
-          </Box>
-        ))}
-      </Box>
+      {patient?.entries?.map((entry) => (
+        <EntryDetails entry={entry} key={entry.id} />
+      ))}
     </Box>
   );
 };
