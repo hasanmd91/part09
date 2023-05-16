@@ -4,14 +4,14 @@ import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import { Button, Divider, Container, Typography } from "@mui/material";
 
 import { apiBaseUrl } from "./constants";
-import { Patient } from "./types";
+import { NonSensetivePatient } from "./types";
 
 import patientService from "./services/patients";
 import PatientListPage from "./components/PatientListPage";
-import OnePatient from "./components/OnePatient/OnePatient";
+import PatientDetails from "./components/PateientDetails/PatientDetails";
 
 const App = () => {
-  const [patients, setPatients] = useState<Patient[]>([]);
+  const [patients, setPatients] = useState<NonSensetivePatient[]>([]);
 
   useEffect(() => {
     void axios.get<void>(`${apiBaseUrl}/patients`);
@@ -44,7 +44,7 @@ const App = () => {
                 />
               }
             />
-            <Route path="Onepatient/:id" element={<OnePatient />} />
+            <Route path="PatientDetails/:id" element={<PatientDetails />} />
           </Routes>
         </Container>
       </Router>
