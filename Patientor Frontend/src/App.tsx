@@ -8,12 +8,13 @@ import { Patient } from "./types";
 
 import patientService from "./services/patients";
 import PatientListPage from "./components/PatientListPage";
+import OnePatient from "./components/OnePatient/OnePatient";
 
 const App = () => {
   const [patients, setPatients] = useState<Patient[]>([]);
 
   useEffect(() => {
-    void axios.get<void>(`${apiBaseUrl}/ping`);
+    void axios.get<void>(`${apiBaseUrl}/patients`);
 
     const fetchPatientList = async () => {
       const patients = await patientService.getAll();
@@ -43,6 +44,7 @@ const App = () => {
                 />
               }
             />
+            <Route path="Onepatient/:id" element={<OnePatient />} />
           </Routes>
         </Container>
       </Router>
