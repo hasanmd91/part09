@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { Patient } from "../../types";
 import patientService from "../../services/patients";
 import { Box, Typography } from "@mui/material";
+import DiagnosisDetails from "./DiagnosisDetails";
 
 const PatientDetails = () => {
   const params = useParams<Record<string, string | undefined>>();
@@ -43,7 +44,7 @@ const PatientDetails = () => {
           <Box key={entry.id}>
             <Typography> Description: {entry.description}</Typography>
             {entry.diagnosisCodes?.map((code) => (
-              <li> {code} </li>
+              <DiagnosisDetails code={code} key={code} />
             ))}
           </Box>
         ))}
