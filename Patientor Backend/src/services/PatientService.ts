@@ -3,13 +3,16 @@ import { v1 as uuid } from "uuid";
 import patientsData from "../data/patients";
 
 const getPublicPatient = (): publicPatient[] => {
-  return patientsData.map(({ id, name, dateOfBirth, gender, occupation }) => ({
-    id,
-    name,
-    dateOfBirth,
-    gender,
-    occupation,
-  }));
+  return patientsData.map(
+    ({ id, name, dateOfBirth, gender, occupation, entries }) => ({
+      id,
+      name,
+      dateOfBirth,
+      gender,
+      occupation,
+      entries,
+    })
+  );
 };
 
 const getSinglepatient = (id: string) => {
