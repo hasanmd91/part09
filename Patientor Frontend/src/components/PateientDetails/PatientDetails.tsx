@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { Patient } from "../../types";
 import patientService from "../../services/patients";
 import { Box, Typography } from "@mui/material";
-import EntryDetails from "./EntryDetails";
+import EntryDetails from "./EntryDetails/EntryDetails";
 
 const PatientDetails = () => {
   const params = useParams<Record<string, string | undefined>>();
@@ -15,7 +15,6 @@ const PatientDetails = () => {
     const fetcchOnepatinet = async (id: string) => {
       const patient = await patientService.getPatientDetails(id);
       setPatient(patient);
-      console.log(patient);
     };
     fetcchOnepatinet(id as string);
   }, [id]);
