@@ -1,8 +1,8 @@
 import React from "react";
 import { Entry } from "../../../types";
-import HospitalPatient from "./HospitalPatient";
-import HealthCheckPatient from "./HealthCheckPatient";
-import OccupationalHealthcarePatient from "./OccupationalHealthcarePatient";
+import HospitalPatient from "./EntryComponents/HospitalPatient";
+import HealthCheckPatient from "./EntryComponents/HealthCheckPatient";
+import OccupationalHealthcarePatient from "./EntryComponents/OccupationalHealthcarePatient";
 
 interface EntryDetailsProps {
   entry: Entry;
