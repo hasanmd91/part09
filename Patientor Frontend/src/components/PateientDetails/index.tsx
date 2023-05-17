@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { Patient } from "../../types";
 import patientService from "../../services/patients";
 import { Box, Typography } from "@mui/material";
-import EntryDetails from "./EntryDetails/EntryDetails";
+import EntryDetails from "../EntryDetails/index";
 
 const PatientDetails = () => {
   const params = useParams<Record<string, string | undefined>>();

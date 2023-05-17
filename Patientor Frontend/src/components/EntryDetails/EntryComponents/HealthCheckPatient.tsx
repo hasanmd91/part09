@@ -1,20 +1,19 @@
 import React from "react";
-import { OccupationalHealthcareEntry } from "../../../../types";
+import { HealthCheckEntry } from "../../../types";
 import { Card, CardContent, Typography } from "@mui/material";
-import DiagnosisDetails from "../../../DiagnossisDetails/DiagnosisDetails";
+import DiagnosisDetails from "../../DiagnossisDetails/DiagnosisDetails";
 
-interface OOccupationalHealthcarePatientProps {
-  entry: OccupationalHealthcareEntry;
+interface HealthCheckPatientProps {
+  entry: HealthCheckEntry;
 }
 
-const OccupationalHealthcarePatient: React.FC<
-  OOccupationalHealthcarePatientProps
-> = ({ entry }) => {
+const HealthCheckPatient: React.FC<HealthCheckPatientProps> = ({ entry }) => {
   return (
-    <Card variant="outlined" style={{ marginTop: "2rem" }}>
+    <Card variant="elevation" style={{ marginTop: "1rem" }}>
       <CardContent>
         <Typography> {entry.date} </Typography>
         <Typography> {entry.description} </Typography>
+        <Typography> {entry.healthCheckRating} </Typography>
         <Typography> Diagnosed by {entry.specialist} </Typography>
         {entry.diagnosisCodes?.map((code) => (
           <DiagnosisDetails code={code} />
@@ -24,4 +23,4 @@ const OccupationalHealthcarePatient: React.FC<
   );
 };
 
-export default OccupationalHealthcarePatient;
+export default HealthCheckPatient;

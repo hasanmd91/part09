@@ -1,7 +1,7 @@
 import React from "react";
-import { HospitalEntry } from "../../../../types";
+import { HospitalEntry } from "../../../types";
 import { Card, CardContent, Typography } from "@mui/material";
-import DiagnosisDetails from "../../../DiagnossisDetails/DiagnosisDetails";
+import DiagnosisDetails from "../../DiagnossisDetails/DiagnosisDetails";
 import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
 
 interface HospitalPatientProps {
@@ -10,7 +10,7 @@ interface HospitalPatientProps {
 
 const HospitalPatient: React.FC<HospitalPatientProps> = ({ entry }) => {
   return (
-    <Card variant="outlined" style={{ marginTop: "2rem" }}>
+    <Card variant="elevation" style={{ marginTop: "1rem" }}>
       <CardContent>
         <Typography>
           {" "}
