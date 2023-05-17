@@ -3,6 +3,7 @@ import {
   isValidHealthCheckRating,
   parseEmployerName,
   parseSickLeave,
+  parseDischarge,
 } from "./validateEntryData";
 
 describe("should validate entry data", () => {
@@ -50,5 +51,19 @@ describe("should validate entry data", () => {
     ).toThrowError();
 
     expect(() => parseSickLeave({})).toThrowError();
+  });
+
+  it("parse discharge", () => {
+    expect(
+      parseDischarge({ date: "2015-01-02", criteria: "this is string" })
+    ).toEqual({ date: "2015-01-02", criteria: "this is string" });
+
+    expect(() =>
+      parseDischarge({ date: "20", criteria: "this is string" })
+    ).toThrowError();
+
+    expect(() => parseDischarge({})).toThrowError();
+
+    expect(() => parseDischarge({ date: "2015-01-02" })).toThrowError();
   });
 });
