@@ -16,8 +16,6 @@ app.get("/", (_req, res) => {
 app.use("/api/patients", patientsRouter);
 app.use("/api/diagnoses", diagnoseRouter);
 
-app.use("/api/patients/:id", patientsRouter);
-
 app.listen(PORT, () => {
   console.log(`Server running on port number  ${PORT}`);
 });

@@ -28,9 +28,7 @@ const DiagnosisDetails = ({ code }: DiagnosisDetailsProps) => {
 
   return (
     <Typography variant="subtitle1">
-      <li>
-        {code}: {diagnosis?.name}
-      </li>
+      <li>{diagnosis?.name}</li>
     </Typography>
   );
 };

@@ -8,7 +8,7 @@ import { NonSensetivePatient } from "./types";
 
 import patientService from "./services/patients";
 import PatientListPage from "./components/PatientListPage";
-import PatientDetails from "./components/PateientDetails/PatientDetails";
+import PatientDetails from "./components/PateientDetails";
 
 const App = () => {
   const [patients, setPatients] = useState<NonSensetivePatient[]>([]);
