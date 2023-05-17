@@ -1,16 +1,33 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import DiagnosesService from "../services/DiagnosesService";
-import { Request, Response } from "express";
 
 const router = express.Router();
 
-router.get("/", (_req, res) => {
-  res.send(DiagnosesService.getdiagnoseData());
+router.get("/", (_req: Request, res: Response) => {
+  try {
+    const diagnosesData = DiagnosesService.getdiagnoseData();
+    res.send(diagnosesData);
+  } catch (error: unknown) {
+    let errorMessage = "Something went wrong";
+    if (error instanceof Error) {
+      errorMessage += ": " + error.message;
+    }
+    res.status(500).send(errorMessage);
+  }
 });
 
 router.get("/:code", (req: Request<{ code: string }>, res: Response) => {
-  const { code } = req.params;
-  res.send(DiagnosesService.getDiagnoseDataBycode(code));
+  try {
+    const { code } = req.params;
+    const diagnosisData = DiagnosesService.getDiagnoseDataBycode(code);
+    res.send(diagnosisData);
+  } catch (error: unknown) {
+    let errorMessage = "Something went wrong";
+    if (error instanceof Error) {
+      errorMessage += ": " + error.message;
+    }
+    res.status(500).send(errorMessage);
+  }
 });
 
 export default router;
