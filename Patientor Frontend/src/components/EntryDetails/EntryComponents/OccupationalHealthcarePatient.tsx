@@ -1,7 +1,7 @@
 import React from "react";
 import { OccupationalHealthcareEntry } from "../../../types";
 import { Card, CardContent, Typography } from "@mui/material";
-import DiagnosisDetails from "../../DiagnossisDetails/DiagnosisDetails";
+import DiagnosisDetails from "../../DiagnossisDetails/Index";
 
 interface OOccupationalHealthcarePatientProps {
   entry: OccupationalHealthcareEntry;
