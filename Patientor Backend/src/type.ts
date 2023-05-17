@@ -16,7 +16,7 @@ export interface Patient {
 
 export type publicPatient = Omit<Patient, "ssn">;
 
-export type newPatient = Omit<Patient, "id" | "entries">;
+export type newPatient = Omit<Patient, "id">;
 
 export interface Diagnosis {
   code: string;
@@ -63,5 +63,13 @@ interface Discharge {
 }
 interface HospitalEntry extends BaseEntry {
   type: "Hospital";
-  discharge: Discharge;
+  discharge?: Discharge;
 }
+
+type UnionOmit<T, K extends string | number | symbol> = T extends unknown
+  ? Omit<T, K>
+  : never;
+
+export type EntryWithoutId = UnionOmit<Entry, "id">;
+
+export type EntryType = "HealthCheck" | "OccupationalHealthcare" | "Hospital";

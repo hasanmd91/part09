@@ -62,7 +62,7 @@ const toAddNewPatient = (object: unknown): newPatient => {
     "gender" in object &&
     "occupation" in object
   ) {
-    const newEntry: newPatient = {
+    const newPatient: newPatient = {
       name: parseName(object.name),
       dateOfBirth: parseDate(object.dateOfBirth),
       ssn: parseSsn(object.ssn),
@@ -70,7 +70,7 @@ const toAddNewPatient = (object: unknown): newPatient => {
       occupation: parseOccupation(object.occupation),
     };
 
-    return newEntry;
+    return newPatient;
   }
 
   throw new Error("Incorrect data: some fields are missing");
