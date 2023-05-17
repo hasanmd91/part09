@@ -31,22 +31,7 @@ const patients: Patient[] = [
     ssn: "300179-777A",
     gender: Gender.Male,
     occupation: "Cop",
-    entries: [
-      {
-        id: "fcd59fa6-c4b4-4fec-ac4d-df4fe1f85f62",
-        date: "2019-08-05",
-        type: "OccupationalHealthcare",
-        specialist: "MD House",
-        employerName: "HyPD",
-        diagnosisCodes: ["Z57.1", "Z74.3", "M51.2"],
-        description:
-          "Patient mistakenly found himself in a nuclear plant waste site without protection gear. Very minor radiation poisoning. ",
-        SickLeave: {
-          startDate: "2019-08-05",
-          endDate: "2019-08-28",
-        },
-      },
-    ],
+    entries: [],
   },
   {
     id: "d27736ec-f723-11e9-8f0b-362b9e155667",
