@@ -73,7 +73,7 @@ const parseType = (type: unknown) => {
 
 export const parseSickLeave = (sickLeave: unknown): SickLeave => {
   if (!sickLeave || typeof sickLeave !== "object") {
-    throw new Error("incoorect or missing data");
+    throw new Error("Incorrect or missing sickLeave");
   }
   if ("startDate" in sickLeave && "endDate" in sickLeave) {
     return {
@@ -81,12 +81,12 @@ export const parseSickLeave = (sickLeave: unknown): SickLeave => {
       endDate: parseDate(sickLeave.endDate),
     };
   }
-  throw new Error("Incorrect or missing rating:" + sickLeave);
+  throw new Error("Incorrect or missing sickLeave:" + sickLeave);
 };
 
 export const parseDischarge = (discharge: unknown): Discharge => {
   if (!discharge || typeof discharge !== "object") {
-    throw new Error("incoorect or missing data");
+    throw new Error("Incorrect or missing discharge");
   }
 
   if ("criteria" in discharge && "date" in discharge) {
@@ -115,7 +115,7 @@ export const parseEmployerName = (employerName: unknown): string => {
 
 const NewBaseEntry = (object: unknown) => {
   if (!object || typeof object !== "object") {
-    throw new Error("incorect or missing data");
+    throw new Error("Incorect or missing data");
   }
 
   if (
@@ -140,7 +140,7 @@ const NewBaseEntry = (object: unknown) => {
 
 const toAddNewEntries = (object: unknown): EntryWithoutId => {
   if (!object || typeof object !== "object") {
-    throw new Error("incorect or missing data");
+    throw new Error("Incorect or missing data");
   }
   const BaseEntry = NewBaseEntry(object);
   {
