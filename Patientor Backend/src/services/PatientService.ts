@@ -1,7 +1,8 @@
-import { EntryWithoutId } from "./../type";
+import { v1 as uuid } from "uuid";
 import { publicPatient, newPatient, Patient } from "../type";
 import patientsData from "../data/patients";
-import { v1 as uuid } from "uuid";
+
+import { EntryWithoutId } from "./../type";
 
 const getPublicPatient = (): publicPatient[] => {
   return patientsData.map(
