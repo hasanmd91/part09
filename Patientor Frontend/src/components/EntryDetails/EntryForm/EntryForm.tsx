@@ -1,38 +1,45 @@
-import { TextField, Typography } from "@mui/material";
+import {
+  TextField,
+  Typography,
+  InputLabel,
+  Select,
+  MenuItem,
+} from "@mui/material";
 import { Box } from "@mui/system";
 import React, { SyntheticEvent, useState } from "react";
 import patientService from "../../../services/patients";
 import { useParams } from "react-router-dom";
-import { Entry, HealthCheckRating } from "../../../types";
+import { EntryWithoutId, HealthCheckRating } from "../../../types";
 
 const EntryForm = () => {
   const [description, setDescription] = useState("");
   const [date, setDate] = useState("");
   const [specialist, setSpecialist] = useState("");
+  const [diagnosisCodes, setDiagnosisCodes] = useState<string[]>([]);
   const [healthCheckRating, setHealthCheckRating] = useState<HealthCheckRating>(
     HealthCheckRating.Healthy
   );
-  const [diagnosisCodes, setDiagnosisCodes] = useState<string[]>([]);
+
   const [error, setError] = useState("");
+  const id = useParams() as unknown as string;
 
-  const id = useParams();
-
-  const addNewEntry = (id: string, entry: Entry) => {
-    try {
-      patientService.createEntry(id, entry);
-    } catch (error) {
-      console.log(error);
-    }
+  const addNewEntry = (id: string, entry: EntryWithoutId) => {
+    patientService.createEntry(id, entry);
   };
+
+  const handelHealthCheckRating = () => {};
+
+  const HandelDiagnosis = () => {};
 
   const submitHandeler = (event: SyntheticEvent) => {
     event.preventDefault();
-    const newEntry: Entry = {
+    const newEntry: EntryWithoutId = {
+      type: "HealthCheck",
       description,
       date,
       specialist,
-      healthCheckRating,
       diagnosisCodes,
+      healthCheckRating,
     };
     addNewEntry(id, newEntry);
   };
@@ -49,8 +56,8 @@ const EntryForm = () => {
           onChange={({ target }) => setDescription(target.value)}
         />
         <TextField
+          type="date"
           margin="dense"
-          label="Date"
           fullWidth
           value={date}
           onChange={({ target }) => setDate(target.value)}
@@ -62,19 +69,19 @@ const EntryForm = () => {
           value={specialist}
           onChange={({ target }) => setSpecialist(target.value)}
         />
-        <TextField
-          margin="dense"
-          label="Health Check Ratinng"
+        <InputLabel style={{ marginTop: 10 }}>Health Check Rating</InputLabel>
+        <Select
           fullWidth
-          value={healthChckRating}
-          onChange={({ target }) => setHealthCheckRating(target.value)}
-        />
+          value={healthCheckRating}
+          onChange={handelHealthCheckRating}
+        ></Select>
+
         <TextField
           margin="dense"
           label="Diagnosis Code"
           fullWidth
           value={diagnosisCodes}
-          onChange={({ target }) => setDiagnosisCodes(target.value)}
+          onChange={HandelDiagnosis}
         />
       </form>
     </Box>
