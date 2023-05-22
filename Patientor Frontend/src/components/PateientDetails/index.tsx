@@ -4,6 +4,7 @@ import { Patient } from "../../types";
 import patientService from "../../services/patients";
 import { Box, Typography } from "@mui/material";
 import EntryDetails from "../EntryDetails/index";
+import EntryForm from "../EntryDetails/EntryForm/EntryForm";
 
 const PatientDetails = () => {
   const params = useParams<Record<string, string | undefined>>();
@@ -37,6 +38,7 @@ const PatientDetails = () => {
           <strong>Gender:</strong> {patient?.gender}{" "}
         </Typography>
       </Box>
+      <EntryForm />
       {patient?.entries?.map((entry) => (
         <EntryDetails entry={entry} key={entry.id} />
       ))}

@@ -16,8 +16,8 @@ const OccupationalHealthcarePatient: React.FC<
         <Typography> {entry.date} </Typography>
         <Typography> {entry.description} </Typography>
         <Typography> Diagnosed by {entry.specialist} </Typography>
-        {entry.diagnosisCodes?.map((code) => (
-          <DiagnosisDetails code={code} />
+        {entry.diagnosisCodes?.map((code, index) => (
+          <DiagnosisDetails code={code} key={index} />
         ))}
       </CardContent>
     </Card>
