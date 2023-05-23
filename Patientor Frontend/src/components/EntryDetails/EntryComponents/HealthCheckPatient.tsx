@@ -33,7 +33,7 @@ const HealthCheckPatient: React.FC<HealthCheckPatientProps> = ({ entry }) => {
         </Typography>
         <Typography> Diagnosed by {entry?.specialist} </Typography>
         {entry?.diagnosisCodes?.map((code) => (
-          <DiagnosisDetails code={code} />
+          <DiagnosisDetails code={code} key={code} />
         ))}
       </CardContent>
     </Card>

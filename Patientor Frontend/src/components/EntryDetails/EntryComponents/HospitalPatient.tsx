@@ -20,8 +20,8 @@ const HospitalPatient: React.FC<HospitalPatientProps> = ({ entry }) => {
           Discharged: {entry.discharge.date} {entry.discharge.criteria}
         </Typography>
         <Typography> Diagnosed by {entry.specialist} </Typography>
-        {entry.diagnosisCodes?.map((code, index) => (
-          <DiagnosisDetails code={code} key={index} />
+        {entry.diagnosisCodes?.map((code) => (
+          <DiagnosisDetails code={code} key={code} />
         ))}
       </CardContent>
     </Card>

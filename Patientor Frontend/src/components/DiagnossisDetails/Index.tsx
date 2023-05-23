@@ -13,12 +13,17 @@ const DiagnosisDetails = ({ code }: DiagnosisDetailsProps) => {
 
   useEffect(() => {
     if (code) {
-      const fetchDiagnosis = () => {
-        axios
-          .get<Diagnosis>(`${apiBaseUrl}/diagnoses/${code}`)
-          .then((res) => setDiagnosis(res.data));
+      const fetchDiagnosis = async () => {
+        try {
+          const response = await axios.get<Diagnosis>(
+            `${apiBaseUrl}/diagnoses/${code}`
+          );
+          setDiagnosis(response.data);
+        } catch (error) {
+          console.log(error);
+        }
       };
-      fetchDiagnosis();
+      fetchDiagnosis().catch((error) => console.log(error));
     }
   }, [code]);
 
@@ -28,7 +33,7 @@ const DiagnosisDetails = ({ code }: DiagnosisDetailsProps) => {
 
   return (
     <Typography variant="subtitle1">
-      <li>{diagnosis?.name}</li>
+      {diagnosis?.code}: {diagnosis?.name}
     </Typography>
   );
 };

@@ -31,6 +31,11 @@ const EntryForm = () => {
     }
   };
 
+  const HandelDiagnosis = (input: string) => {
+    const codes = input.split(",").map((code: string) => code.trim());
+    setDiagnosisCodes(codes);
+  };
+
   const submitHandeler = (event: SyntheticEvent) => {
     event.preventDefault();
 
@@ -43,11 +48,6 @@ const EntryForm = () => {
       healthCheckRating,
     };
     addNewEntry(id, newEntry).catch((error) => console.log(error));
-  };
-
-  const HandelDiagnosis = (input: string) => {
-    const codes = input.split(",").map((code: string) => code.trim());
-    setDiagnosisCodes(codes);
   };
 
   return (

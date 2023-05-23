@@ -14,8 +14,9 @@ const PatientDetails = () => {
     const fetcchOnepatinet = async (id: string | undefined) => {
       try {
         if (!id) return;
-        const patient = await patientService.getPatientDetails(id);
+        const patient: Patient = await patientService.getPatientDetails(id);
         setPatient(patient);
+        console.log(patient);
       } catch (error) {
         console.log(error);
       }
