@@ -37,7 +37,14 @@ const addNewEntry = (id: string, entry: EntryWithoutId) => {
     id: uuid(),
     ...entry,
   };
-  Patient?.entries?.push(newEntry);
+
+  console.log("this is patient", Patient);
+  console.log("this is entry", newEntry);
+  if (Patient) {
+    const myentry = Patient?.entries?.push(newEntry);
+    console.log("this is all entries", myentry);
+  }
+
   return newEntry;
 };
 
