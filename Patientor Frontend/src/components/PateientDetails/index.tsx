@@ -10,18 +10,18 @@ const PatientDetails = () => {
   const { id } = useParams<{ id: string }>();
   const [patient, setPatient] = useState<Patient>();
 
+  const fetchPatientData = async (id: string | undefined) => {
+    try {
+      if (!id) return;
+      const patient: Patient = await patientService.getPatientDetails(id);
+      setPatient(patient);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
-    const fetcchOnepatinet = async (id: string | undefined) => {
-      try {
-        if (!id) return;
-        const patient: Patient = await patientService.getPatientDetails(id);
-        setPatient(patient);
-        console.log(patient);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetcchOnepatinet(id).catch((error) => console.log(error));
+    fetchPatientData(id).catch((error) => console.log(error));
   }, [id]);
 
   return (
@@ -42,7 +42,7 @@ const PatientDetails = () => {
           <strong>Gender:</strong> {patient?.gender}{" "}
         </Typography>
       </Box>
-      <EntryForm />
+      <EntryForm onEntryAdded={() => fetchPatientData(id)} />
       {patient?.entries?.map((entry) => (
         <EntryDetails entry={entry} key={entry.id} />
       ))}

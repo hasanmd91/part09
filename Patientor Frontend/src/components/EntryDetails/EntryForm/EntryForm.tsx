@@ -12,7 +12,11 @@ import patientService from "../../../services/patients";
 import { useParams } from "react-router-dom";
 import { EntryWithoutId, HealthCheckRating } from "../../../types";
 
-const EntryForm = () => {
+interface EntryFormProps {
+  onEntryAdded: () => Promise<void>;
+}
+
+const EntryForm = ({ onEntryAdded }: EntryFormProps) => {
   const [description, setDescription] = useState("");
   const [date, setDate] = useState("");
   const [specialist, setSpecialist] = useState("");
@@ -26,6 +30,7 @@ const EntryForm = () => {
     if (!id) return;
     try {
       await patientService.createEntry(id, entry);
+      onEntryAdded();
     } catch (error) {
       console.log(error);
     }
