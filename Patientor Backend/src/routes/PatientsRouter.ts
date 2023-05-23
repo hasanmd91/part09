@@ -21,6 +21,7 @@ router.get("/", (_req: Request, res: Response) => {
 router.get("/:id", (req: Request<{ id: string }>, res: Response) => {
   try {
     const { id } = req.params;
+
     const singlePatient = PatientService.getSinglepatient(id);
     res.send(singlePatient);
   } catch (error: unknown) {
@@ -46,11 +47,13 @@ router.post("/", (req: Request, res: Response) => {
   }
 });
 
-router.post("/:id/entries", (req: Request<{ id: string }>, res: Response) => {
-  try {
-    const { id } = req.params;
-    const newEntry = toAddNewEntries(req.body);
+router.post("/:id/entries", (req: Request, res: Response) => {
+  console.log(req);
 
+  try {
+    const id = req.params.id;
+    // console.log("lets fix this one", id);
+    const newEntry = toAddNewEntries(req.body);
     const addedPatientEntry = PatientService.addNewEntry(id, newEntry);
     res.json(addedPatientEntry);
   } catch (error: unknown) {

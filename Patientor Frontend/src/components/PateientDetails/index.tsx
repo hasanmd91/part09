@@ -7,17 +7,20 @@ import EntryDetails from "../EntryDetails/index";
 import EntryForm from "../EntryDetails/EntryForm/EntryForm";
 
 const PatientDetails = () => {
-  const params = useParams<Record<string, string | undefined>>();
-  const { id } = params;
-
+  const { id } = useParams<{ id: string }>();
   const [patient, setPatient] = useState<Patient>();
 
   useEffect(() => {
-    const fetcchOnepatinet = async (id: string) => {
-      const patient = await patientService.getPatientDetails(id);
-      setPatient(patient);
+    const fetcchOnepatinet = async (id: string | undefined) => {
+      try {
+        if (!id) return;
+        const patient = await patientService.getPatientDetails(id);
+        setPatient(patient);
+      } catch (error) {
+        console.log(error);
+      }
     };
-    fetcchOnepatinet(id as string);
+    fetcchOnepatinet(id).catch((error) => console.log(error));
   }, [id]);
 
   return (

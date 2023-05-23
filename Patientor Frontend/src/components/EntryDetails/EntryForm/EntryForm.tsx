@@ -20,15 +20,15 @@ const EntryForm = () => {
   const [healthCheckRating, setHealthCheckRating] = useState(
     HealthCheckRating.Healthy
   );
-  const id = useParams() as unknown as string;
+  const { id } = useParams<{ id: string }>();
 
-  const addNewEntry = (id: string, entry: EntryWithoutId) => {
-    patientService.createEntry(id, entry);
-  };
-
-  const HandelDiagnosis = (input: string) => {
-    const codes = input.split(",").map((code: string) => code.trim());
-    setDiagnosisCodes(codes);
+  const addNewEntry = async (id: string | undefined, entry: EntryWithoutId) => {
+    if (!id) return;
+    try {
+      await patientService.createEntry(id, entry);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const submitHandeler = (event: SyntheticEvent) => {
@@ -42,7 +42,12 @@ const EntryForm = () => {
       diagnosisCodes,
       healthCheckRating,
     };
-    addNewEntry(id, newEntry);
+    addNewEntry(id, newEntry).catch((error) => console.log(error));
+  };
+
+  const HandelDiagnosis = (input: string) => {
+    const codes = input.split(",").map((code: string) => code.trim());
+    setDiagnosisCodes(codes);
   };
 
   return (
