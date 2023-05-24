@@ -12,6 +12,7 @@ import patientService from "../../../services/patients";
 import { useParams } from "react-router-dom";
 import { Diagnosis, EntryWithoutId, HealthCheckRating } from "../../../types";
 import diagnosisService from "../../../services/diagnosis";
+import Error from "../../Error/Error";
 
 interface EntryFormProps {
   onEntryAdded: () => Promise<void>;
@@ -35,6 +36,7 @@ const EntryForm = ({ onEntryAdded }: EntryFormProps) => {
   const [dischargeDate, setDischargeDate] = useState<string>("");
   const [criteria, setCriteria] = useState<string>("");
   const [diagnosis, setDiagnosis] = useState<Diagnosis[]>([]);
+  const [error, seterror] = useState("");
 
   const { id } = useParams<{ id: string }>();
 
@@ -112,162 +114,166 @@ const EntryForm = ({ onEntryAdded }: EntryFormProps) => {
   };
 
   return (
-    <Box border={1} padding={2}>
-      <Typography variant="h6"> New HealthCheck Entry</Typography>
-      <form onSubmit={submitHandeler}>
-        <InputLabel style={{ marginTop: 10 }}>Entry Type</InputLabel>
-        <Select
-          value={entryType}
-          margin="dense"
-          label="Entry Type"
-          fullWidth
-          onChange={({ target }) => setEntryType(target.value)}
-        >
-          <MenuItem value="HealthCheck">Health Check</MenuItem>
-          <MenuItem value="OccupationalHealthcare">
-            Occupational Healthcare
-          </MenuItem>
-          <MenuItem value="Hospital">Hospital</MenuItem>
-        </Select>
-        <TextField
-          margin="dense"
-          label="Description"
-          fullWidth
-          value={description}
-          onChange={({ target }) => setDescription(target.value)}
-        />
-        <TextField
-          type="date"
-          margin="dense"
-          fullWidth
-          value={date}
-          onChange={({ target }) => setDate(target.value)}
-        />
-        <TextField
-          margin="dense"
-          label="Specialist"
-          fullWidth
-          value={specialist}
-          onChange={({ target }) => setSpecialist(target.value)}
-        />
-
-        <InputLabel> Diagnosis Code</InputLabel>
-        {Array.isArray(diagnosis) && diagnosis.length > 0 && (
+    <Box>
+      {error && <Error error={""} />}
+      <Box border={1} padding={2}>
+        <Typography variant="h6"> New HealthCheck Entry</Typography>
+        <form onSubmit={submitHandeler}>
+          <InputLabel style={{ marginTop: 10 }}>Entry Type</InputLabel>
           <Select
+            value={entryType}
             margin="dense"
-            label="Diagnosis Code"
+            label="Entry Type"
             fullWidth
-            value={diagnosisCodes}
-            onChange={({ target }) => {
-              if (Array.isArray(target.value)) {
-                setDiagnosisCodes(target.value);
-              } else {
-                setDiagnosisCodes([target.value]);
-              }
-            }}
+            onChange={({ target }) => setEntryType(target.value)}
           >
-            <MenuItem value="" disabled>
-              Select Diagnosis Code
+            <MenuItem value="HealthCheck">Health Check</MenuItem>
+            <MenuItem value="OccupationalHealthcare">
+              Occupational Healthcare
             </MenuItem>
-            {diagnosis?.map((diagnose) => (
-              <MenuItem value={diagnose.code} key={diagnose.code}>
-                {diagnose.code}
-              </MenuItem>
-            ))}
+            <MenuItem value="Hospital">Hospital</MenuItem>
           </Select>
-        )}
+          <TextField
+            margin="dense"
+            label="Description"
+            fullWidth
+            value={description}
+            onChange={({ target }) => setDescription(target.value)}
+          />
+          <TextField
+            type="date"
+            margin="dense"
+            fullWidth
+            value={date}
+            onChange={({ target }) => setDate(target.value)}
+          />
+          <TextField
+            margin="dense"
+            label="Specialist"
+            fullWidth
+            value={specialist}
+            onChange={({ target }) => setSpecialist(target.value)}
+          />
 
-        {entryType === "HealthCheck" && (
-          <>
-            <InputLabel style={{ marginTop: 10 }}>
-              Health Check Rating
-            </InputLabel>
+          <InputLabel> Diagnosis Code</InputLabel>
+          {Array.isArray(diagnosis) && diagnosis.length > 0 && (
             <Select
-              value={healthCheckRating}
-              type="number"
+              multiple
               margin="dense"
-              label="Health check rating "
+              label="Diagnosis Code"
               fullWidth
-              onChange={({ target }) =>
-                setHealthCheckRating(Number(target.value))
-              }
+              value={diagnosisCodes}
+              onChange={({ target }) => {
+                if (Array.isArray(target.value)) {
+                  setDiagnosisCodes(target.value);
+                } else {
+                  setDiagnosisCodes([target.value]);
+                }
+              }}
             >
-              <MenuItem value={HealthCheckRating.Healthy}>0</MenuItem>
-              <MenuItem value={HealthCheckRating.LowRisk}>1</MenuItem>
-              <MenuItem value={HealthCheckRating.HighRisk}>2</MenuItem>
-              <MenuItem value={HealthCheckRating.CriticalRisk}>3</MenuItem>
+              <MenuItem value="" disabled>
+                Select Diagnosis Code
+              </MenuItem>
+              {diagnosis?.map((diagnose) => (
+                <MenuItem value={diagnose.code} key={diagnose.code}>
+                  {diagnose.code}
+                </MenuItem>
+              ))}
             </Select>
-          </>
-        )}
+          )}
 
-        {entryType === "OccupationalHealthcare" && (
-          <>
-            <TextField
-              margin="dense"
-              label="Employer name "
-              fullWidth
-              value={employerName}
-              onChange={({ target }) => setEmployerName(target.value)}
-            />
-            <InputLabel>Sick leave </InputLabel>
-            <TextField
-              type="date"
-              margin="dense"
-              fullWidth
-              value={sickLeaveStartDate}
-              onChange={({ target }) => setSickLeaveStartDate(target.value)}
-            />
-            <TextField
-              type="date"
-              margin="dense"
-              fullWidth
-              value={sickLeaveEndDate}
-              onChange={({ target }) => setSickLeaveEndDate(target.value)}
-            />
-          </>
-        )}
-        {entryType === "Hospital" && (
-          <>
-            <InputLabel> Discharge Date</InputLabel>
-            <TextField
-              type="date"
-              margin="dense"
-              fullWidth
-              value={dischargeDate}
-              onChange={({ target }) => setDischargeDate(target.value)}
-            />
-            <TextField
-              label="Criteria"
-              type="text"
-              margin="dense"
-              fullWidth
-              value={criteria}
-              onChange={({ target }) => setCriteria(target.value)}
-            />
-          </>
-        )}
-        <Box
-          marginTop={1}
-          sx={{ display: "flex", justifyContent: "space-between" }}
-        >
-          <Button
-            type="submit"
-            variant="contained"
-            color="secondary"
-            size="large"
+          {entryType === "HealthCheck" && (
+            <>
+              <InputLabel style={{ marginTop: 10 }}>
+                Health Check Rating
+              </InputLabel>
+              <Select
+                value={healthCheckRating}
+                type="number"
+                margin="dense"
+                label="Health check rating "
+                fullWidth
+                onChange={({ target }) =>
+                  setHealthCheckRating(Number(target.value))
+                }
+              >
+                <MenuItem value={HealthCheckRating.Healthy}>0</MenuItem>
+                <MenuItem value={HealthCheckRating.LowRisk}>1</MenuItem>
+                <MenuItem value={HealthCheckRating.HighRisk}>2</MenuItem>
+                <MenuItem value={HealthCheckRating.CriticalRisk}>3</MenuItem>
+              </Select>
+            </>
+          )}
+
+          {entryType === "OccupationalHealthcare" && (
+            <>
+              <TextField
+                margin="dense"
+                label="Employer name "
+                fullWidth
+                value={employerName}
+                onChange={({ target }) => setEmployerName(target.value)}
+              />
+              <InputLabel>Sick leave </InputLabel>
+              <TextField
+                type="date"
+                margin="dense"
+                fullWidth
+                value={sickLeaveStartDate}
+                onChange={({ target }) => setSickLeaveStartDate(target.value)}
+              />
+              <TextField
+                type="date"
+                margin="dense"
+                fullWidth
+                value={sickLeaveEndDate}
+                onChange={({ target }) => setSickLeaveEndDate(target.value)}
+              />
+            </>
+          )}
+          {entryType === "Hospital" && (
+            <>
+              <InputLabel> Discharge Date</InputLabel>
+              <TextField
+                type="date"
+                margin="dense"
+                fullWidth
+                value={dischargeDate}
+                onChange={({ target }) => setDischargeDate(target.value)}
+              />
+              <TextField
+                label="Criteria"
+                type="text"
+                margin="dense"
+                fullWidth
+                value={criteria}
+                onChange={({ target }) => setCriteria(target.value)}
+              />
+            </>
+          )}
+          <Box
+            marginTop={1}
+            sx={{ display: "flex", justifyContent: "space-between" }}
           >
-            Add Entry
-          </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            size="medium"
-            onClick={() => clear()}
-          >
-            Cancel
-          </Button>
-        </Box>
-      </form>
+            <Button
+              variant="contained"
+              color="primary"
+              size="medium"
+              onClick={() => clear()}
+            >
+              Cancel
+            </Button>
+            <Button
+              type="submit"
+              variant="contained"
+              color="secondary"
+              size="large"
+            >
+              Add Entry
+            </Button>
+          </Box>
+        </form>
+      </Box>
     </Box>
   );
 };
