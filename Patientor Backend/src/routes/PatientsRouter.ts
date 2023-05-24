@@ -48,8 +48,6 @@ router.post("/", (req: Request, res: Response) => {
 });
 
 router.post("/:id/entries", (req: Request, res: Response) => {
-  console.log(req);
-
   try {
     const id = req.params.id;
     const newEntry = toAddNewEntries(req.body);

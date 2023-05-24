@@ -13,6 +13,7 @@ const DiagnosisDetails = ({ code }: DiagnosisDetailsProps) => {
 
   useEffect(() => {
     if (code) {
+      console.log(code);
       const fetchDiagnosis = async () => {
         try {
           const response = await axios.get<Diagnosis>(
@@ -33,7 +34,7 @@ const DiagnosisDetails = ({ code }: DiagnosisDetailsProps) => {
 
   return (
     <Typography variant="subtitle1">
-      {diagnosis?.code}: {diagnosis?.name}
+      Diagnosis code: {code} {diagnosis?.name}
     </Typography>
   );
 };

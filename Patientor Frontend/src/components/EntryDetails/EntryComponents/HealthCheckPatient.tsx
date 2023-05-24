@@ -26,10 +26,13 @@ const HealthCheckPatient: React.FC<HealthCheckPatientProps> = ({ entry }) => {
   return (
     <Card variant="elevation" style={{ marginTop: "1rem" }}>
       <CardContent>
+        <Typography>
+          <strong>Entry Type:</strong> {entry?.type}
+        </Typography>
         <Typography> {entry?.date} </Typography>
         <Typography> {entry?.description} </Typography>
         <Typography>
-          <FavoriteSharpIcon style={{ color: ratingColor }} />{" "}
+          Rating: <FavoriteSharpIcon style={{ color: ratingColor }} />
         </Typography>
         <Typography> Diagnosed by {entry?.specialist} </Typography>
         {entry?.diagnosisCodes?.map((code) => (

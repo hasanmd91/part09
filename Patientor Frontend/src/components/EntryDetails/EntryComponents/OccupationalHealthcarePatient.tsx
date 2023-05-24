@@ -13,6 +13,9 @@ const OccupationalHealthcarePatient: React.FC<
   return (
     <Card variant="elevation" style={{ marginTop: "1rem" }}>
       <CardContent>
+        <Typography>
+          <strong>Entry Type:</strong> {entry?.type}
+        </Typography>
         <Typography> {entry.date} </Typography>
         <Typography> {entry.description} </Typography>
         <Typography> Diagnosed by {entry.specialist} </Typography>

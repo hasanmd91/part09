@@ -13,6 +13,9 @@ const HospitalPatient: React.FC<HospitalPatientProps> = ({ entry }) => {
     <Card variant="elevation" style={{ marginTop: "1rem" }}>
       <CardContent>
         <Typography>
+          <strong>Entry Type:</strong> {entry?.type}
+        </Typography>
+        <Typography>
           {entry.date} <LocalHospitalIcon />
         </Typography>
         <Typography> {entry.description} </Typography>

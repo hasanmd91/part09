@@ -32,19 +32,14 @@ const addPatients = (patients: newPatient): Patient => {
 };
 
 const addNewEntry = (id: string, entry: EntryWithoutId) => {
-  console.log("what is this id", id);
-
   const Patient = patientsData.find((patient) => patient.id === id);
   const newEntry = {
     id: uuid(),
     ...entry,
   };
 
-  console.log("this is patient", Patient);
-  console.log("this is entry", newEntry);
   if (Patient) {
-    const myentry = Patient?.entries?.push(newEntry);
-    console.log("this is all entries", myentry);
+    Patient?.entries?.push(newEntry);
   }
 
   return newEntry;
