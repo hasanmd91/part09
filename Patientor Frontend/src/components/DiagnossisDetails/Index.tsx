@@ -33,8 +33,8 @@ const DiagnosisDetails = ({ code }: DiagnosisDetailsProps) => {
   }
 
   return (
-    <Typography variant="subtitle1">
-      Diagnosis code: {code} {diagnosis?.name}
+    <Typography display="block" variant="caption">
+      {code} {diagnosis?.name}
     </Typography>
   );
 };

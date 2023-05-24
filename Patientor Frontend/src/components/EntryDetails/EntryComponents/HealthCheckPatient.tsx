@@ -35,6 +35,7 @@ const HealthCheckPatient: React.FC<HealthCheckPatientProps> = ({ entry }) => {
           Rating: <FavoriteSharpIcon style={{ color: ratingColor }} />
         </Typography>
         <Typography> Diagnosed by {entry?.specialist} </Typography>
+        <Typography variant="caption"> Diagnose Code:</Typography>
         {entry?.diagnosisCodes?.map((code) => (
           <DiagnosisDetails code={code} key={code} />
         ))}

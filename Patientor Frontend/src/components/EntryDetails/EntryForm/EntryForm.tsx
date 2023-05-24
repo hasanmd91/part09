@@ -34,6 +34,20 @@ const EntryForm = ({ onEntryAdded }: EntryFormProps) => {
 
   const { id } = useParams<{ id: string }>();
 
+  const clear = (): void => {
+    setEntryType("HealthCheck");
+    setDescription("");
+    setDate("");
+    setSpecialist("");
+    setDiagnosisCodes([]);
+    setHealthCheckRating(HealthCheckRating.Healthy);
+    setEmployerName("");
+    setSickLeaveEndDate("");
+    setSickLeaveStartDate("");
+    setDischargeDate("");
+    setCriteria("");
+  };
+
   const addNewEntry = async (id: string | undefined, entry: EntryWithoutId) => {
     if (!id) return;
     try {
@@ -83,15 +97,15 @@ const EntryForm = ({ onEntryAdded }: EntryFormProps) => {
         specialist,
         diagnosisCodes,
         discharge: {
-          date: "",
-          criteria: "",
+          date: dischargeDate,
+          criteria: criteria,
         },
       };
     } else {
       return;
     }
-
     addNewEntry(id, newEntry).catch((error) => console.log(error));
+    clear();
   };
 
   return (
@@ -173,8 +187,7 @@ const EntryForm = ({ onEntryAdded }: EntryFormProps) => {
               value={employerName}
               onChange={({ target }) => setEmployerName(target.value)}
             />
-
-            <InputLabel style={{ marginTop: 10 }}>Sick leave </InputLabel>
+            <InputLabel>Sick leave </InputLabel>
             <TextField
               type="date"
               margin="dense"
@@ -191,10 +204,9 @@ const EntryForm = ({ onEntryAdded }: EntryFormProps) => {
             />
           </>
         )}
-
         {entryType === "Hospital" && (
           <>
-            <InputLabel style={{ marginTop: 10 }}>DisCharge </InputLabel>
+            <InputLabel> Discharge Date</InputLabel>
             <TextField
               type="date"
               margin="dense"
@@ -212,8 +224,27 @@ const EntryForm = ({ onEntryAdded }: EntryFormProps) => {
             />
           </>
         )}
-
-        <Button type="submit"> Add Entry</Button>
+        <Box
+          marginTop={1}
+          sx={{ display: "flex", justifyContent: "space-between" }}
+        >
+          <Button
+            type="submit"
+            variant="contained"
+            color="secondary"
+            size="large"
+          >
+            Add Entry
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            size="medium"
+            onClick={() => clear()}
+          >
+            Cancel
+          </Button>
+        </Box>
       </form>
     </Box>
   );
