@@ -7,10 +7,11 @@ import {
   Box,
   Button,
 } from "@mui/material";
-import React, { SyntheticEvent, useState } from "react";
+import React, { SyntheticEvent, useEffect, useState } from "react";
 import patientService from "../../../services/patients";
 import { useParams } from "react-router-dom";
-import { EntryWithoutId, HealthCheckRating } from "../../../types";
+import { Diagnosis, EntryWithoutId, HealthCheckRating } from "../../../types";
+import diagnosisService from "../../../services/diagnosis";
 
 interface EntryFormProps {
   onEntryAdded: () => Promise<void>;
@@ -21,7 +22,9 @@ const EntryForm = ({ onEntryAdded }: EntryFormProps) => {
   const [description, setDescription] = useState("");
   const [date, setDate] = useState("");
   const [specialist, setSpecialist] = useState("");
-  const [diagnosisCodes, setDiagnosisCodes] = useState<string[]>([]);
+  const [diagnosisCodes, setDiagnosisCodes] = useState<
+    Array<Diagnosis["code"]>
+  >([]);
   const [healthCheckRating, setHealthCheckRating] = useState(
     HealthCheckRating.Healthy
   );
@@ -31,8 +34,13 @@ const EntryForm = ({ onEntryAdded }: EntryFormProps) => {
   const [sickLeaveEndDate, setSickLeaveEndDate] = useState<string>("");
   const [dischargeDate, setDischargeDate] = useState<string>("");
   const [criteria, setCriteria] = useState<string>("");
+  const [diagnosis, setDiagnosis] = useState<Diagnosis[]>([]);
 
   const { id } = useParams<{ id: string }>();
+
+  useEffect(() => {
+    diagnosisService.getAll().then((data) => setDiagnosis(data));
+  }, []);
 
   const clear = (): void => {
     setEntryType("HealthCheck");
@@ -56,11 +64,6 @@ const EntryForm = ({ onEntryAdded }: EntryFormProps) => {
     } catch (error) {
       console.log(error);
     }
-  };
-
-  const HandelDiagnosis = (input: string) => {
-    const codes = input.split(",").map((code: string) => code.trim());
-    setDiagnosisCodes(codes);
   };
 
   const submitHandeler = (event: SyntheticEvent) => {
@@ -147,13 +150,32 @@ const EntryForm = ({ onEntryAdded }: EntryFormProps) => {
           value={specialist}
           onChange={({ target }) => setSpecialist(target.value)}
         />
-        <TextField
-          margin="dense"
-          label="Diagnosis Code"
-          fullWidth
-          value={diagnosisCodes}
-          onChange={({ target }) => HandelDiagnosis(target.value)}
-        />
+
+        <InputLabel> Diagnosis Code</InputLabel>
+        {Array.isArray(diagnosis) && diagnosis.length > 0 && (
+          <Select
+            margin="dense"
+            label="Diagnosis Code"
+            fullWidth
+            value={diagnosisCodes}
+            onChange={({ target }) => {
+              if (Array.isArray(target.value)) {
+                setDiagnosisCodes(target.value);
+              } else {
+                setDiagnosisCodes([target.value]);
+              }
+            }}
+          >
+            <MenuItem value="" disabled>
+              Select Diagnosis Code
+            </MenuItem>
+            {diagnosis?.map((diagnose) => (
+              <MenuItem value={diagnose.code} key={diagnose.code}>
+                {diagnose.code}
+              </MenuItem>
+            ))}
+          </Select>
+        )}
 
         {entryType === "HealthCheck" && (
           <>

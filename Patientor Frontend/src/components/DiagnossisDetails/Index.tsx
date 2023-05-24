@@ -9,7 +9,7 @@ interface DiagnosisDetailsProps {
 }
 
 const DiagnosisDetails = ({ code }: DiagnosisDetailsProps) => {
-  const [diagnosis, setDiagnosis] = useState<Diagnosis | undefined>();
+  const [diagnosis, setDiagnosis] = useState<Diagnosis>();
 
   useEffect(() => {
     if (code) {

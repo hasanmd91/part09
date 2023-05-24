@@ -9,7 +9,6 @@ interface HospitalPatientProps {
 }
 
 const HospitalPatient: React.FC<HospitalPatientProps> = ({ entry }) => {
-  console.log(entry);
   return (
     <Card variant="elevation" style={{ marginTop: "1rem" }}>
       <CardContent>
