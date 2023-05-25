@@ -16,12 +16,10 @@ const patientService = {
   },
 
   create: async (object: PatientFormValues) => {
-    console.log(object);
     const { data } = await axios.post<Patient>(
       `${apiBaseUrl}/patients`,
       object
     );
-    console.log(data);
     return data;
   },
 

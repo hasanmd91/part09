@@ -13,18 +13,13 @@ const DiagnosisDetails = ({ code }: DiagnosisDetailsProps) => {
 
   useEffect(() => {
     if (code) {
-      console.log(code);
       const fetchDiagnosis = async () => {
-        try {
-          const response = await axios.get<Diagnosis>(
-            `${apiBaseUrl}/diagnoses/${code}`
-          );
-          setDiagnosis(response.data);
-        } catch (error) {
-          console.log(error);
-        }
+        const response = await axios.get<Diagnosis>(
+          `${apiBaseUrl}/diagnoses/${code}`
+        );
+        setDiagnosis(response.data);
       };
-      fetchDiagnosis().catch((error) => console.log(error));
+      fetchDiagnosis();
     }
   }, [code]);
 
