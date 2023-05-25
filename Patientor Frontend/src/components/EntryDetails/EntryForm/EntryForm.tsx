@@ -19,10 +19,12 @@ interface EntryFormProps {
 }
 
 const EntryForm = ({ onEntryAdded }: EntryFormProps) => {
-  const [entryType, setEntryType] = useState("HealthCheck");
-  const [description, setDescription] = useState("");
-  const [date, setDate] = useState("");
-  const [specialist, setSpecialist] = useState("");
+  const [entryType, setEntryType] = useState<
+    "HealthCheck" | "OccupationalHealthcare" | "Hospital"
+  >("HealthCheck");
+  const [description, setDescription] = useState<string>("");
+  const [date, setDate] = useState<string>("");
+  const [specialist, setSpecialist] = useState<string>("");
   const [diagnosisCodes, setDiagnosisCodes] = useState<
     Array<Diagnosis["code"]>
   >([]);
@@ -36,7 +38,7 @@ const EntryForm = ({ onEntryAdded }: EntryFormProps) => {
   const [dischargeDate, setDischargeDate] = useState<string>("");
   const [criteria, setCriteria] = useState<string>("");
   const [diagnosis, setDiagnosis] = useState<Diagnosis[]>([]);
-  const [error, setError] = useState("");
+  const [error, setError] = useState<string>("");
 
   const { id } = useParams<{ id: string }>();
 
@@ -137,7 +139,14 @@ const EntryForm = ({ onEntryAdded }: EntryFormProps) => {
             margin="dense"
             label="Entry Type"
             fullWidth
-            onChange={({ target }) => setEntryType(target.value)}
+            onChange={({ target }) =>
+              setEntryType(
+                target.value as
+                  | "HealthCheck"
+                  | "OccupationalHealthcare"
+                  | "Hospital"
+              )
+            }
           >
             <MenuItem value="HealthCheck">Health Check</MenuItem>
             <MenuItem value="OccupationalHealthcare">

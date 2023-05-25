@@ -15,6 +15,7 @@ const Entries = ({ entries }: EntriesProps) => {
           </p>
           <p>{entry.weather}</p>
           <p> {entry.visibility}</p>
+          <p> {entry.comment}</p>
         </div>
       ))}
     </div>

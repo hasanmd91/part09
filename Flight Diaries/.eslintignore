@@ -1,1 +1,12 @@
-build 
+# Ignore node_modules directory
+node_modules/
+
+# Ignore built files or output directories
+build/
+dist/
+out/
+
+# Ignore specific files
+*.config.js
+*.test.js
+*.config.json
