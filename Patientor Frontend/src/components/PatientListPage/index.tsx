@@ -9,7 +9,6 @@ import {
   TableCell,
   TableRow,
   TableBody,
-  CircularProgress,
 } from "@mui/material";
 import { PatientFormValues, Patient } from "../../types";
 import AddPatientModal from "../AddPatientModal";
