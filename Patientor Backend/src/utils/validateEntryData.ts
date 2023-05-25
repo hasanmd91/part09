@@ -44,7 +44,12 @@ const parseCriteria = (criteria: unknown): string => {
 };
 
 const parseDate = (date: unknown): string => {
-  if (!date || !isString(date) || !isDate(date)) {
+  if (
+    !date ||
+    !isString(date) ||
+    !isDate(date) ||
+    (date as string).trim() === ""
+  ) {
     throw new Error("Incorrect or missing date: " + date);
   }
   return date;
@@ -58,10 +63,10 @@ const parseSpecialist = (specialist: unknown): string => {
 };
 
 const parseDiagnosisCodes = (object: unknown): Array<Diagnosis["code"]> => {
-  if (Array.isArray(object)) {
+  if (Array.isArray(object) && object.length > 0) {
     return object as Array<Diagnosis["code"]>;
   }
-  return [];
+  throw new Error("Incorrect or missing diagnosis code:");
 };
 
 const parseType = (type: unknown) => {
@@ -158,7 +163,7 @@ const toAddNewEntries = (object: unknown): EntryWithoutId => {
         if ("discharge" in object) {
           return {
             ...BaseEntry,
-            discharge: object.discharge as Discharge,
+            discharge: parseDischarge(object.discharge),
           };
         }
         break;
@@ -168,7 +173,7 @@ const toAddNewEntries = (object: unknown): EntryWithoutId => {
           return {
             ...BaseEntry,
             employerName: parseEmployerName(object.employerName),
-            sickLeave: object.sickLeave as SickLeave,
+            sickLeave: parseSickLeave(object.sickLeave),
           };
         }
 
