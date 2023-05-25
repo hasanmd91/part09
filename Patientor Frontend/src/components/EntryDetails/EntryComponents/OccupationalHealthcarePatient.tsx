@@ -19,6 +19,10 @@ const OccupationalHealthcarePatient: React.FC<
         <Typography> {entry.date} </Typography>
         <Typography> {entry.description} </Typography>
         <Typography> Diagnosed by {entry.specialist} </Typography>
+        <Typography variant="caption">
+          <Divider />
+          Employername: {entry.employerName}{" "}
+        </Typography>
         <Divider />
         <Typography variant="subtitle1"> Sick Leave</Typography>
         <Typography display="block" variant="caption">

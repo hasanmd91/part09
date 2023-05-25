@@ -1,7 +1,14 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
-import { Button, Divider, Container, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Divider,
+  Container,
+  Typography,
+  CircularProgress,
+} from "@mui/material";
 
 import { apiBaseUrl } from "./constants";
 import { NonSensetivePatient } from "./types";
@@ -22,6 +29,14 @@ const App = () => {
     };
     void fetchPatientList();
   }, []);
+
+  if (patients.length < 0) {
+    return (
+      <Box sx={{ display: "flex", justifyContent: "space-around" }}>
+        <CircularProgress />
+      </Box>
+    );
+  }
 
   return (
     <div className="App">

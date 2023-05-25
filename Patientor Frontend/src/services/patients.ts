@@ -20,7 +20,6 @@ const patientService = {
       `${apiBaseUrl}/patients`,
       object
     );
-
     return data;
   },
 
