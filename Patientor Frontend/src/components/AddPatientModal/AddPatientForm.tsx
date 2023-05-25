@@ -73,9 +73,8 @@ const AddPatientForm = ({ onCancel, onSubmit }: Props) => {
           onChange={({ target }) => setSsn(target.value)}
         />
         <TextField
+          type="date"
           margin="dense"
-          label="Date of birth"
-          placeholder="YYYY-MM-DD"
           fullWidth
           value={dateOfBirth}
           onChange={({ target }) => setDateOfBirth(target.value)}

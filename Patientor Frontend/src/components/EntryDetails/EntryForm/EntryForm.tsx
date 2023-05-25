@@ -13,8 +13,7 @@ import patientService from "../../../services/patients";
 import { Diagnosis, EntryWithoutId, HealthCheckRating } from "../../../types";
 import diagnosisService from "../../../services/diagnosis";
 import Error from "../../Error/Error";
-import axios from "axios";
-
+import ErrorHandeler from "../../../utils";
 interface EntryFormProps {
   onEntryAdded: () => Promise<void>;
 }
@@ -41,30 +40,13 @@ const EntryForm = ({ onEntryAdded }: EntryFormProps) => {
 
   const { id } = useParams<{ id: string }>();
 
-  const ErrorHandeler = (e: unknown) => {
-    if (axios.isAxiosError(e)) {
-      if (e?.response?.data && typeof e?.response?.data === "string") {
-        const message = e.response.data.replace(
-          "Something went wrong. Error: ",
-          ""
-        );
-        console.error(message);
-        setError(message);
-      } else {
-        setError("Unrecognized axios error");
-      }
-    } else {
-      console.error("Unknown error", e);
-      setError("Unknown error");
-    }
-  };
-
   useEffect(() => {
     diagnosisService
       .getAll()
       .then((data) => setDiagnosis(data))
       .catch((e) => {
-        ErrorHandeler(e);
+        const err = ErrorHandeler(e);
+        setError(err);
       });
   }, []);
 
@@ -89,8 +71,10 @@ const EntryForm = ({ onEntryAdded }: EntryFormProps) => {
     try {
       await patientService.createEntry(id, entry);
       onEntryAdded().catch((e) => ErrorHandeler(e));
+      clear();
     } catch (e: unknown) {
-      ErrorHandeler(e);
+      const err = ErrorHandeler(e);
+      setError(err);
     }
   };
 
@@ -135,7 +119,10 @@ const EntryForm = ({ onEntryAdded }: EntryFormProps) => {
     } else {
       return;
     }
-    addNewEntry(id, newEntry).catch((e) => ErrorHandeler(e));
+    addNewEntry(id, newEntry).catch((e) => {
+      const err = ErrorHandeler(e);
+      setError(err);
+    });
   };
 
   return (

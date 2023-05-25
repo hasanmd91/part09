@@ -9,12 +9,13 @@ import {
   TableCell,
   TableRow,
   TableBody,
+  CircularProgress,
 } from "@mui/material";
-import axios from "axios";
 import { PatientFormValues, Patient } from "../../types";
 import AddPatientModal from "../AddPatientModal";
 import HealthRatingBar from "../HealthRatingBar";
 import patientService from "../../services/patients";
+import ErrorHandeler from "../../utils";
 
 interface Props {
   patients: Patient[];
@@ -29,10 +30,11 @@ const PatientListPage = ({ patients, setPatients }: Props) => {
 
   const closeModal = (): void => {
     setModalOpen(false);
-    setError(undefined);
+    setError("");
   };
 
   const submitNewPatient = async (values: PatientFormValues) => {
+    setError("");
     try {
       const patient = await patientService.create(values);
       if (patient) {
@@ -42,25 +44,10 @@ const PatientListPage = ({ patients, setPatients }: Props) => {
         setError("Patient creation faield");
       }
     } catch (e: unknown) {
-      if (axios.isAxiosError(e)) {
-        if (e?.response?.data && typeof e?.response?.data === "string") {
-          const message = e.response.data.replace(
-            "Something went wrong. Error: ",
-            ""
-          );
-          console.error(message);
-          setError(message);
-        } else {
-          setError("Unrecognized axios error");
-        }
-      } else {
-        console.error("Unknown error", e);
-        setError("Unknown error");
-      }
+      const err = ErrorHandeler(e);
+      setError(err);
     }
   };
-
-  
 
   return (
     <div className="App">
@@ -95,7 +82,7 @@ const PatientListPage = ({ patients, setPatients }: Props) => {
       </Table>
       <AddPatientModal
         modalOpen={modalOpen}
-        onSubmit={() => submitNewPatient}
+        onSubmit={submitNewPatient}
         error={error}
         onClose={closeModal}
       />
