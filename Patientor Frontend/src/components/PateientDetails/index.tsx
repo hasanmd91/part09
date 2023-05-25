@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { Box, Typography } from "@mui/material";
 import { Patient } from "../../types";
 import patientService from "../../services/patients";
-import { Box, Typography } from "@mui/material";
 import EntryDetails from "../EntryDetails/index";
 import EntryForm from "../EntryDetails/EntryForm/EntryForm";
 

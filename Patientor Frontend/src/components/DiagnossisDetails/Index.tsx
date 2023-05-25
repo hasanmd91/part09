@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Diagnosis } from "../../types";
 import axios from "axios";
-import { apiBaseUrl } from "../../constants";
 import { Typography } from "@mui/material";
+import { Diagnosis } from "../../types";
+import { apiBaseUrl } from "../../constants";
 
 interface DiagnosisDetailsProps {
   code?: string;
 }
 
 const DiagnosisDetails = ({ code }: DiagnosisDetailsProps) => {
-  const [diagnosis, setDiagnosis] = useState<Diagnosis | undefined>();
+  const [diagnosis, setDiagnosis] = useState<Diagnosis>();
 
   useEffect(() => {
     if (code) {
@@ -33,8 +33,8 @@ const DiagnosisDetails = ({ code }: DiagnosisDetailsProps) => {
   }
 
   return (
-    <Typography variant="subtitle1">
-      Diagnosis code: {code} {diagnosis?.name}
+    <Typography display="block" variant="caption">
+      {code} {diagnosis?.name}
     </Typography>
   );
 };

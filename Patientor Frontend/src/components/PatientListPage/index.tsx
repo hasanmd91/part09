@@ -35,8 +35,12 @@ const PatientListPage = ({ patients, setPatients }: Props) => {
   const submitNewPatient = async (values: PatientFormValues) => {
     try {
       const patient = await patientService.create(values);
-      setPatients(patients.concat(patient));
-      setModalOpen(false);
+      if (patient) {
+        setPatients(patients.concat(patient));
+        setModalOpen(false);
+      } else {
+        setError("Patient creation faield");
+      }
     } catch (e: unknown) {
       if (axios.isAxiosError(e)) {
         if (e?.response?.data && typeof e?.response?.data === "string") {
@@ -89,7 +93,7 @@ const PatientListPage = ({ patients, setPatients }: Props) => {
       </Table>
       <AddPatientModal
         modalOpen={modalOpen}
-        onSubmit={submitNewPatient}
+        onSubmit={() => submitNewPatient}
         error={error}
         onClose={closeModal}
       />

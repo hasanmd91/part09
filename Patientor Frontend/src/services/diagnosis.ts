@@ -1,6 +1,6 @@
+import axios from "axios";
 import { Diagnosis } from "../types";
 import { apiBaseUrl } from "../constants";
-import axios from "axios";
 
 const diagnosisService = {
   getAll: async (): Promise<Diagnosis[]> => {
