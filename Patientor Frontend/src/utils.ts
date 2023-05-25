@@ -6,7 +6,6 @@ const ErrorHandeler = (e: unknown) => {
         "Something went wrong. Error: ",
         ""
       );
-      console.error(message);
       return message;
     } else {
       return "Unrecognized axios error";
