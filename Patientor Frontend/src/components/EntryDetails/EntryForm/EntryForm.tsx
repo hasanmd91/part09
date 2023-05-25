@@ -13,6 +13,7 @@ import patientService from "../../../services/patients";
 import { Diagnosis, EntryWithoutId, HealthCheckRating } from "../../../types";
 import diagnosisService from "../../../services/diagnosis";
 import Error from "../../Error/Error";
+import axios from "axios";
 
 interface EntryFormProps {
   onEntryAdded: () => Promise<void>;
@@ -37,14 +38,34 @@ const EntryForm = ({ onEntryAdded }: EntryFormProps) => {
   const [criteria, setCriteria] = useState<string>("");
   const [diagnosis, setDiagnosis] = useState<Diagnosis[]>([]);
   const [error, setError] = useState("");
-  console.log(setError);
+
   const { id } = useParams<{ id: string }>();
+
+  const ErrorHandeler = (e: unknown) => {
+    if (axios.isAxiosError(e)) {
+      if (e?.response?.data && typeof e?.response?.data === "string") {
+        const message = e.response.data.replace(
+          "Something went wrong. Error: ",
+          ""
+        );
+        console.error(message);
+        setError(message);
+      } else {
+        setError("Unrecognized axios error");
+      }
+    } else {
+      console.error("Unknown error", e);
+      setError("Unknown error");
+    }
+  };
 
   useEffect(() => {
     diagnosisService
       .getAll()
       .then((data) => setDiagnosis(data))
-      .catch((error) => console.log(error));
+      .catch((e) => {
+        ErrorHandeler(e);
+      });
   }, []);
 
   const clear = (): void => {
@@ -59,15 +80,17 @@ const EntryForm = ({ onEntryAdded }: EntryFormProps) => {
     setSickLeaveStartDate("");
     setDischargeDate("");
     setCriteria("");
+    setError("");
   };
 
   const addNewEntry = async (id: string | undefined, entry: EntryWithoutId) => {
+    setError("");
     if (!id) return;
     try {
       await patientService.createEntry(id, entry);
-      onEntryAdded().catch((error) => console.log(error));
-    } catch (error) {
-      console.log(error);
+      onEntryAdded().catch((e) => ErrorHandeler(e));
+    } catch (e: unknown) {
+      ErrorHandeler(e);
     }
   };
 
@@ -112,13 +135,12 @@ const EntryForm = ({ onEntryAdded }: EntryFormProps) => {
     } else {
       return;
     }
-    addNewEntry(id, newEntry).catch((error) => console.log(error));
-    clear();
+    addNewEntry(id, newEntry).catch((e) => ErrorHandeler(e));
   };
 
   return (
     <Box>
-      {error && <Error error={""} />}
+      {error && <Error error={error} />}
       <Box border={1} padding={2}>
         <Typography variant="h6"> New HealthCheck Entry</Typography>
         <form onSubmit={submitHandeler}>
@@ -264,7 +286,7 @@ const EntryForm = ({ onEntryAdded }: EntryFormProps) => {
               size="medium"
               onClick={() => clear()}
             >
-              Cancel
+              Clear
             </Button>
             <Button
               type="submit"
