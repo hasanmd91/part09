@@ -9,3 +9,4 @@ out/
 # Ignore specific files
 *.config.js
 *.test.js
+*.config.json
