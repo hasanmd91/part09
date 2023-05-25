@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Diagnosis } from "../../types";
 import axios from "axios";
-import { apiBaseUrl } from "../../constants";
 import { Typography } from "@mui/material";
+import { Diagnosis } from "../../types";
+import { apiBaseUrl } from "../../constants";
 
 interface DiagnosisDetailsProps {
   code?: string;

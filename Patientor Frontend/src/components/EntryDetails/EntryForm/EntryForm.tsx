@@ -8,8 +8,8 @@ import {
   Button,
 } from "@mui/material";
 import React, { SyntheticEvent, useEffect, useState } from "react";
-import patientService from "../../../services/patients";
 import { useParams } from "react-router-dom";
+import patientService from "../../../services/patients";
 import { Diagnosis, EntryWithoutId, HealthCheckRating } from "../../../types";
 import diagnosisService from "../../../services/diagnosis";
 import Error from "../../Error/Error";
@@ -36,12 +36,15 @@ const EntryForm = ({ onEntryAdded }: EntryFormProps) => {
   const [dischargeDate, setDischargeDate] = useState<string>("");
   const [criteria, setCriteria] = useState<string>("");
   const [diagnosis, setDiagnosis] = useState<Diagnosis[]>([]);
-  const [error, seterror] = useState("");
-
+  const [error, setError] = useState("");
+  console.log(setError);
   const { id } = useParams<{ id: string }>();
 
   useEffect(() => {
-    diagnosisService.getAll().then((data) => setDiagnosis(data));
+    diagnosisService
+      .getAll()
+      .then((data) => setDiagnosis(data))
+      .catch((error) => console.log(error));
   }, []);
 
   const clear = (): void => {
@@ -62,7 +65,7 @@ const EntryForm = ({ onEntryAdded }: EntryFormProps) => {
     if (!id) return;
     try {
       await patientService.createEntry(id, entry);
-      onEntryAdded();
+      onEntryAdded().catch((error) => console.log(error));
     } catch (error) {
       console.log(error);
     }

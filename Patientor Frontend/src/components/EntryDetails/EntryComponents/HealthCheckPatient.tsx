@@ -1,8 +1,8 @@
 import React from "react";
-import { HealthCheckEntry } from "../../../types";
 import { Card, CardContent, Typography } from "@mui/material";
-import DiagnosisDetails from "../../DiagnossisDetails/Index";
 import FavoriteSharpIcon from "@mui/icons-material/FavoriteSharp";
+import { HealthCheckEntry } from "../../../types";
+import DiagnosisDetails from "../../DiagnossisDetails/Index";
 interface HealthCheckPatientProps {
   entry: HealthCheckEntry;
 }

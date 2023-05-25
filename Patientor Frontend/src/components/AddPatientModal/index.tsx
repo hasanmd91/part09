@@ -6,8 +6,8 @@ import {
   Alert,
 } from "@mui/material";
 
-import AddPatientForm from "./AddPatientForm";
 import { PatientFormValues } from "../../types";
+import AddPatientForm from "./AddPatientForm";
 
 interface Props {
   modalOpen: boolean;

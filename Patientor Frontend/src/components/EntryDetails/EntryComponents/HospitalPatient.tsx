@@ -1,8 +1,8 @@
 import React from "react";
-import { HospitalEntry } from "../../../types";
 import { Card, CardContent, Divider, Typography } from "@mui/material";
-import DiagnosisDetails from "../../DiagnossisDetails/Index";
 import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
+import { HospitalEntry } from "../../../types";
+import DiagnosisDetails from "../../DiagnossisDetails/Index";
 
 interface HospitalPatientProps {
   entry: HospitalEntry;
